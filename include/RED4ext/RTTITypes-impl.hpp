@@ -35,3 +35,10 @@ RED4ext::CClassFunction* RED4ext::CClass::GetFunction(CName aName)
     static REDfunc<func_t> func(Addresses::CClass_GetFunction);
     return func(this, aName);
 }
+
+RED4ext::CProperty* RED4ext::CClass::GetProperty(CName aName)
+{
+    using prop_t = CProperty* (*)(CClass*, CName);
+    static REDprop<prop_t> func(Addresses::CClass_GetProperty);
+    return func(this, name);
+}

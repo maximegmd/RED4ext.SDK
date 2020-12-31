@@ -202,6 +202,7 @@ struct CClass : CRTTIType
 
     bool IsA(IRTTIType* aType);
     CClassFunction* GetFunction(CName aName);
+    CProperty* GetProperty(CName aName);
 
     CClass* parent;
     CName name;

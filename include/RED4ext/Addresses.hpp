@@ -14,6 +14,9 @@ constexpr uintptr_t CClass_AllocInstance = 0x140212590 - 0x140000000;
 // 4C 8B C9 48 85 C9 74 5E 49 8B 41 48, expected: 1, index: 0
 constexpr uintptr_t CClass_GetFunction = 0x140212D50 - 0x140000000;
 
+//TODO
+constexpr uintptr_t CClass_GetProperty = 0x0 - 0x0;
+
 // 48 83 EC 38 48 8B 11 48 8D 4C 24 20 E8, expected: 1, index: 0
 constexpr uintptr_t CNamePool_Get = 0x1401BC060 - 0x140000000;
 

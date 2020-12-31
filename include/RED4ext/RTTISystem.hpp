@@ -8,6 +8,8 @@
 #include <RED4ext/HashMap.hpp>
 #include <RED4ext/RTTITypes.hpp>
 #include <RED4ext/Scripting/Functions.hpp>
+#include <RED4ext/Scripting/CProperty.hpp>
+
 
 namespace RED4ext
 {
@@ -20,6 +22,7 @@ struct IRTTISystem
     virtual IRTTIType* BitField(CName aName) = 0;
     virtual void sub_28() = 0;
     virtual CGlobalFunction* GetFunction(CName aName) = 0;
+    virtual CProperty* GetProperty(CName aName) = 0;
     virtual void sub_38() = 0;
     virtual void sub_40() = 0;
     virtual void sub_48() = 0;
@@ -33,6 +36,7 @@ struct IRTTISystem
     virtual void sub_88() = 0;
     virtual void sub_90() = 0;
     virtual void RegisterFunction(CGlobalFunction* aFunc) = 0;
+    virtual void RegisterProperty(CProperty* aFunc) = 0;
     virtual void sub_A0() = 0;
     virtual void sub_A8() = 0;
     virtual void sub_B0() = 0;
