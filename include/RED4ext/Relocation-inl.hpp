@@ -20,15 +20,15 @@ RED4EXT_INLINE uintptr_t RED4ext::RelocBase::GetImageBase()
 RED4EXT_INLINE
 uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
 {
-    using functionType = uintptr_t (*)(uint32_t);
+    using functionType = void* (*)(uint32_t);
     static functionType resolveFunc = nullptr;
 
     static std::once_flag flag;
     std::call_once(flag,
        []()
        {
-           constexpr auto dllName = "RED4ext.dll";
-           constexpr auto functionName = "RED4ext_ResolveAddress";
+           constexpr auto dllName = "version.dll";
+           constexpr auto functionName = "ResolveAddress";
 
            auto handle = GetModuleHandleA(dllName);
            if (!handle)
@@ -63,5 +63,5 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
         TerminateProcess(GetCurrentProcess(), 1);
     }
 
-    return address;
+    return reinterpret_cast<uintptr_t>(address);
 }
