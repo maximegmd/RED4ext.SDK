@@ -6,6 +6,7 @@
 
 #include <mutex>
 #include <sstream>
+#include <filesystem>
 
 #include <Windows.h>
 
@@ -27,18 +28,24 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
     std::call_once(flag,
        []()
        {
-           constexpr auto dllName = "version.dll";
+           char exePath[4096];
+           GetModuleFileNameA(GetModuleHandle(nullptr), exePath, std::size(exePath));
+
+           std::filesystem::path exe = exePath;
+
+           auto dllName = exe.parent_path() / "version.dll";
            constexpr auto functionName = "ResolveAddress";
 
-           auto handle = GetModuleHandleA(dllName);
+           auto handle = LoadLibraryA(dllName.string().c_str());
            if (!handle)
            {
                std::stringstream stream;
                stream << "Failed to get '" << dllName
                       << "' handle.\nProcess will now close.\n\nLast error: " << GetLastError();
 
-               MessageBoxA(nullptr, stream.str().c_str(), "RED4ext.SDK", MB_ICONERROR | MB_OK);
+               MessageBoxA(nullptr, stream.str().c_str(), "Cyber Engine Tweaks", MB_ICONERROR | MB_OK);
                TerminateProcess(GetCurrentProcess(), 1);
+               return; // Disable stupid warning
            }
 
            resolveFunc = reinterpret_cast<functionType>(GetProcAddress(handle, functionName));
@@ -48,7 +55,7 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
                stream << "Failed to get '" << functionName
                       << "' address.\nProcess will now close.\n\nLast error: " << GetLastError();
 
-               MessageBoxA(nullptr, stream.str().c_str(), "RED4ext.SDK", MB_ICONERROR | MB_OK);
+               MessageBoxA(nullptr, stream.str().c_str(), "Cyber Engine Tweaks", MB_ICONERROR | MB_OK);
                TerminateProcess(GetCurrentProcess(), 1);
            }
        });
@@ -59,7 +66,7 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
         std::stringstream stream;
         stream << "Failed to resolve address for hash " << std::hex << std::showbase << aHash << ".\nProcess will now close.";
 
-        MessageBoxA(nullptr, stream.str().c_str(), "RED4ext.SDK", MB_ICONERROR | MB_OK);
+        MessageBoxA(nullptr, stream.str().c_str(), "Cyber Engine Tweaks", MB_ICONERROR | MB_OK);
         TerminateProcess(GetCurrentProcess(), 1);
     }
 
