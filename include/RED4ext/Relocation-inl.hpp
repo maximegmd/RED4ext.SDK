@@ -29,7 +29,7 @@ uintptr_t RED4ext::UniversalRelocBase::Resolve(uint32_t aHash)
        []()
        {
            char exePath[4096];
-           GetModuleFileNameA(GetModuleHandle(nullptr), exePath, std::size(exePath));
+           GetModuleFileNameA(GetModuleHandle(nullptr), exePath, 4096);
 
            std::filesystem::path exe = exePath;
 
