@@ -30,14 +30,17 @@
 #define RED4EXT_V0_RUNTIME_2_10 RED4EXT_V0_FILEVER(3, 0, 76, 4238)
 #define RED4EXT_V0_RUNTIME_2_11 RED4EXT_V0_FILEVER(3, 0, 76, 41558)
 #define RED4EXT_V0_RUNTIME_2_12 RED4EXT_V0_FILEVER(3, 0, 76, 55031)
+#define RED4EXT_V0_RUNTIME_2_12_HOTFIX_1 RED4EXT_V0_FILEVER(3, 0, 76, 64179)
 
 /**
  * @brief Supports all game versions.
  * @note Only use this if you do not use RED4ext.SDK library, but you want to use RED4ext as a loader only.
  */
-#define RED4EXT_V0_RUNTIME_INDEPENDENT RED4EXT_V0_FILEVER(-1, -1, -1, -1)
+#define RED4EXT_V0_RUNTIME_INDEPENDENT                                                                                 \
+    RED4EXT_V0_FILEVER(static_cast<uint16_t>(-1), static_cast<uint16_t>(-1), static_cast<uint16_t>(-1),                \
+                       static_cast<uint16_t>(-1))
 
 /*
  * @brief The latest game version.
  */
-#define RED4EXT_V0_RUNTIME_LATEST RED4EXT_V0_RUNTIME_2_12
+#define RED4EXT_V0_RUNTIME_LATEST RED4EXT_V0_RUNTIME_2_12_HOTFIX_1
